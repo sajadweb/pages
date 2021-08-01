@@ -1,19 +1,20 @@
 language: node_js
 node_js:
-   - '9'
-dist: trusty
-sudo: required
+   - 'stable'
+cache:
+  directories:
+  - node_modules
 branches:
 only:
   - main
 before_script:
-  - npm install -g @compodoc/compodoc
+  - npm install
 script:
-  - compodoc -p tsconfig.doc.json -n 'Prokey Link'  -d ./docs
+  - npm run compodoc
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
-  local_dir: ./
+  local_dir: ./docs
   on:
-    branch: master
+    branch: main
